@@ -28,10 +28,10 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
-    cart_list.innerHTML = "";
-    total_price.innerHTML = 0;
     var cartList = [];
     cart = [];
+    cart_list.innerHTML = "";
+    total_price.innerHTML = 0;
 }
 
 // Exercise 3
@@ -132,19 +132,25 @@ function addToCart(id) {
 // Exercise 8
 function removeFromCart(id) {
     // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cartList array
-    for (let i = 0; i < id; i++) {
-        var product = products[i];
-    }
+    // Find item with findItem method, if found, remove it from the cart
+    const index = cart.findIndex((product) => product.id === id);
+    const indexCartList = cartList.findIndex((product) => product.id === id);
 
-    if (product.quantity > 1) {
-        product.quantity = product.quantity - 1;
+    // 2. Add found product to the cartList array
+    //If we have 1 item
+    if (cart[index].quantity == 1) {
+        //Removes one element (second argument) from the cart array at the specified index(first argument)
+        cart.splice(index, 1);
+        //Removes on the original array to update the total price
+        cartList.splice(indexCartList, 1);
+        total_price.innerHTML = 0;
         count_product.innerHTML--;
     } else {
-        // Find item with findItem method, if found, remove it from the cart
-        const index = cart.findIndex((item) => item === product);
-        //remove one element (second argument) from the cart array at the specified index(first argument)
-        cart.splice(index, 1);
+        //Other cases we deduct 1 item from the total
+        cart[index].quantity -= 1;
+        cart[index].subtotal -= cart[index].price;
+        //Removes on the original array to update the total price
+        cartList.splice(indexCartList, 1);
         count_product.innerHTML--;
     }
     //Apply promo and print
