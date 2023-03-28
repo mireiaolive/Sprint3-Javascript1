@@ -132,9 +132,11 @@ function addToCart(id) {
 // Exercise 8
 function removeFromCart(id) {
     // 1. Loop for to the array products to get the item to add to cart
-    // Find item with findItem method, if found, remove it from the cart
+    // Find item with findIndex method, if found, remove it from the cart
     const index = cart.findIndex((product) => product.id === id);
+    console.log(cart[index]);
     const indexCartList = cartList.findIndex((product) => product.id === id);
+    console.log(cartList[indexCartList]);
 
     // 2. Add found product to the cartList array
     //If we have 1 item
